@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/perfumes?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://perfumes.cxyg00y40qww.ap-northeast-2.rds.amazonaws.com:3306/perfumes?serverTimezone=Asia/Seoul
     username: root
     password: ww827784
 

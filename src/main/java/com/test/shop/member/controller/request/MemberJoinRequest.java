@@ -11,6 +11,12 @@ public class MemberJoinRequest {
 	private String name;
 	private String email;
 	private String phone;
+	private Integer age;
+	private String zipcode;
+	private String roadAddr;
+	private String jibunAddr;
+	private String detailAddr;
+
 
 	public void passwordVerification() {
 		if (!password.equals(verifyPassword)) {
@@ -25,6 +31,11 @@ public class MemberJoinRequest {
 				.name(name)
 				.email(email)
 				.phone(phone)
+				.age(age)
+				.zipcode(zipcode)
+				.roadAddr(roadAddr)
+				.jibunAddr(jibunAddr)
+				.detailAddr(detailAddr)
 				.build();
 	}
 }
