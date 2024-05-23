@@ -38,3 +38,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .exposedHeaders("X-Auth-Token");
     }
 }
+
