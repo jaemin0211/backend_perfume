@@ -3,8 +3,9 @@ package com.test.shop.cart.controller.request;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class AddCartRequest {
-	private List<Long> productIdList;
+	private Map<Long, Integer> productQuantities;
 }

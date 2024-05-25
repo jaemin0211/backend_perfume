@@ -22,6 +22,8 @@ public class Cart {
 
 	private LocalDateTime regDate;
 
+	private int quantity;
+
 	@ManyToOne
 	@JoinColumn(name = "productId")
 	private Product product;

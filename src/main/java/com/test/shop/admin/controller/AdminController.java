@@ -11,6 +11,7 @@ import com.test.shop.order.controller.response.OrderItemResponse;
 import com.test.shop.order.controller.response.OrderResponse;
 import com.test.shop.order.service.OrderService;
 import com.test.shop.product.controller.response.DetailProductResponse;
+import com.test.shop.product.entity.Product;
 import com.test.shop.product.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,9 @@ public class AdminController {
 	public ResponseEntity<Void> getAllProduct(HttpSession session) {
 		log.info("test");
 		String sessionId = session.getId();
+
+		List<Product> products = productService.findAllProduct();
+
 		return ResponseEntity.ok()
 				.header("X-Auth-Token", sessionId)
 				.build();

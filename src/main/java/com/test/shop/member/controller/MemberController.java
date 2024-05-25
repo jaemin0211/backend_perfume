@@ -5,15 +5,13 @@ import com.test.shop.member.controller.request.MemberFindPasswordRequest;
 import com.test.shop.member.controller.request.MemberJoinRequest;
 import com.test.shop.member.controller.request.MemberLoginRequest;
 import com.test.shop.member.controller.response.LoginResponse;
+import com.test.shop.member.controller.response.MemberInfoResponse;
 import com.test.shop.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,6 +46,16 @@ public class MemberController {
 		return ResponseEntity.ok()
 				.header("X-Auth-Token", sessionId)
 				.body(login);
+	}
+
+	@GetMapping("/info")
+	public ResponseEntity<MemberInfoResponse> getMemberInfo(HttpSession session) {
+		Long userNo = (Long) session.getAttribute("userNo");
+		if (userNo == null) {
+			return ResponseEntity.status(401).build();
+		}
+		MemberInfoResponse memberInfo = memberService.getMemberInfo(userNo);
+		return ResponseEntity.ok(memberInfo);
 	}
 
 	@PostMapping("/find-id")

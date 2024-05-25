@@ -27,10 +27,13 @@ public class ProductService {
 		return productRepository.findAllById(productNoList);
 	}
 
+	public List<Product> findAllProduct() {
+		return productRepository.findAll();
+	}
 	public List<ProductSimpleResponse> searchWithCategory(Long categoryId) {
 		return productRepository.findByCategoryCateId(categoryId)
 				.stream()
-				.map(i -> new ProductSimpleResponse(i.getProductId(), i.getName()))
+				.map(i -> new ProductSimpleResponse(i.getProductId(), i.getName(),i.getPrice()))
 				.toList();
 	}
 

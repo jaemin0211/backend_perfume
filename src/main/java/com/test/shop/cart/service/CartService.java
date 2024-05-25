@@ -10,6 +10,7 @@ import com.test.shop.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,13 +23,16 @@ public class CartService {
 
 	public void addAllCart(AddCartRequest addCartRequest, Long userNo) {
 		Member member = memberService.getMember(userNo);
-		List<Product> productList = productService.findAllProduct(addCartRequest.getProductIdList());
-		for (Product product : productList) {
+		addCartRequest.getProductQuantities().forEach((productId, quantity) -> {
+			Product product = productService.getProduct(productId);
 			cartRepository.save(Cart.builder()
 					.member(member)
 					.product(product)
+					.quantity(quantity)
+					.regDate(LocalDateTime.now())
 					.build());
-		}
+		});
+
 	}
 
 	public List<Cart> findByCartIdAndMemberId(Long memberId) {

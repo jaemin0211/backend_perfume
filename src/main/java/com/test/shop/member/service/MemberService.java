@@ -5,6 +5,7 @@ import com.test.shop.common.exception.GlobalException;
 import com.test.shop.member.controller.request.MemberFindPasswordRequest;
 import com.test.shop.member.controller.request.MemberJoinRequest;
 import com.test.shop.member.controller.response.LoginResponse;
+import com.test.shop.member.controller.response.MemberInfoResponse;
 import com.test.shop.member.entity.Member;
 import com.test.shop.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -81,5 +82,10 @@ public class MemberService {
 		return memberRepository.existsById(userNo);
 	}
 
+	public MemberInfoResponse getMemberInfo(Long userNo) {
+		Member member = memberRepository.findById(userNo)
+				.orElseThrow(() -> new GlobalException(NOT_FOUND_USER));
+		return new MemberInfoResponse(member);
+	}
 
 }
