@@ -17,6 +17,21 @@ public class WebConfig implements WebMvcConfigurer {
     private final AdminAuthCheckInterceptor adminAuthCheckInterceptor;
 
 
+    @Configuration
+    public class WebMvcConfig implements WebMvcConfigurer {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:3000", "http://localhost:8080")
+                    .allowedMethods("GET", "POST") // 허용할 HTTP method
+                    .allowCredentials(true) // 쿠키 인증 요청 허용
+                    .exposedHeaders("X-Auth-Token")
+                    .maxAge(3000);
+
+        }
+    }
+
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(memberAuthCheckInterceptor);
@@ -31,11 +46,5 @@ public class WebConfig implements WebMvcConfigurer {
      //           .maxAge(3000);
    // }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .exposedHeaders("X-Auth-Token");
-    }
 }
 
