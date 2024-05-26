@@ -33,7 +33,7 @@ public class ProductService {
 	public List<ProductSimpleResponse> searchWithCategory(Long categoryId) {
 		return productRepository.findByCategoryCateId(categoryId)
 				.stream()
-				.map(i -> new ProductSimpleResponse(i.getProductId(), i.getName(),i.getPrice()))
+				.map(i -> new ProductSimpleResponse(i.getProductId(), i.getName(),i.getPrice(),i.getContent()))
 				.toList();
 	}
 

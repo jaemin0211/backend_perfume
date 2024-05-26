@@ -12,4 +12,5 @@ public class ProductSimpleResponse {
 	private Long productId;
 	private String name;
 	private BigDecimal price;
+	private String content;
 }
