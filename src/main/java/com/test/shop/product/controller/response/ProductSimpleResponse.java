@@ -13,4 +13,5 @@ public class ProductSimpleResponse {
 	private String name;
 	private BigDecimal price;
 	private String content;
+	private String image;
 }

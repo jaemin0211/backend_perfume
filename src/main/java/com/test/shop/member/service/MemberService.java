@@ -10,11 +10,15 @@ import com.test.shop.member.entity.Member;
 import com.test.shop.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-
 import static com.test.shop.common.exception.ErrorCode.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ import static com.test.shop.common.exception.ErrorCode.*;
 public class MemberService {
 
 	private final MemberRepository memberRepository;
+	private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
 
 	public void register(MemberJoinRequest memberJoinRequest) {
 		try {
@@ -66,11 +71,17 @@ public class MemberService {
 		Member findMember = memberRepository.findByMemberId(memberFindPasswordRequest.getId())
 				.orElseThrow(() -> new GlobalException(NOT_FOUND_USER));
 		if (findMember == null) {
+			logger.error("No member found with ID: {}", memberFindPasswordRequest.getId());
 			throw new GlobalException(NOT_FOUND_USER);
 		}
 		if (!findMember.getName().equals(memberFindPasswordRequest.getName()) || !findMember.getPhone().equals(memberFindPasswordRequest.getPhone())) {
+			logger.error("Member details do not match for ID: {}. Expected Name: {}, Phone: {}, but got Name: {}, Phone: {}",
+					memberFindPasswordRequest.getId(),
+					findMember.getName(), findMember.getPhone(),
+					memberFindPasswordRequest.getName(), memberFindPasswordRequest.getPhone());
 			throw new GlobalException(NOT_FOUND_USER);
 		}
+		logger.debug("Password found for ID: {}", memberFindPasswordRequest.getId());
 		return findMember.getPassword();
 	}
 
