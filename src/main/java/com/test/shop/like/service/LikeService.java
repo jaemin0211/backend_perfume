@@ -30,6 +30,9 @@ public class LikeService {
 
 	@Transactional
 	public LikeResponse like(Long productNo, Long userNo) {
+		System.out.println("Product ID : " + productNo);
+		System.out.println("User ID : "+ userNo);
+
 		Product product = productService.getProduct(productNo);
 		Member member = memberService.getMember(userNo);
 		Likes like = Likes.builder()
