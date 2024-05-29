@@ -38,4 +38,9 @@ public class CartService {
 	public List<Cart> findByCartIdAndMemberId(Long memberId) {
 		return cartRepository.findByMember_MemberNo(memberId);
 	}
+
+	public void removeAllCartItems(Long userNo) {
+		List<Cart> cartItems = cartRepository.findByMember_MemberNo(userNo);
+		cartRepository.deleteAll(cartItems);
+	}
 }

@@ -37,4 +37,12 @@ public class CartController {
 				.collect(Collectors.toList());
 		return ResponseEntity.ok(cartItems);
 	}
+
+	@DeleteMapping("/removeCart")
+	@UserAuthCheck
+	public ResponseEntity<Void> removeCart(HttpSession session) {
+		Long userNo = (Long) session.getAttribute("userNo");
+		cartService.removeAllCartItems(userNo);
+		return ResponseEntity.ok().build();
+	}
 }
